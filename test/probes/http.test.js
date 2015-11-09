@@ -339,7 +339,7 @@ describe('probes.http', function () {
         ctx.data = { port: server.address().port }
         var mod = helper.run(ctx, 'http/client')
 
-        helper.httpTest(emitter, mod, [
+        helper.test(emitter, mod, [
           function (msg) {
             check.client.entry(msg)
             msg.should.have.property('RemoteURL', ctx.data.url)
@@ -370,7 +370,7 @@ describe('probes.http', function () {
         var mod = helper.run(ctx, 'http/client-object')
         var url = 'http://' + d.hostname + ':' + d.port + d.path
 
-        helper.httpTest(emitter, mod, [
+        helper.test(emitter, mod, [
           function (msg) {
             check.client.entry(msg)
             msg.should.have.property('RemoteURL', url)
@@ -400,7 +400,7 @@ describe('probes.http', function () {
         ctx.data = { port: server.address().port }
         var mod = helper.run(ctx, 'http/stream')
 
-        helper.httpTest(emitter, mod, [
+        helper.test(emitter, mod, [
           function (msg) {
             check.client.entry(msg)
             msg.should.have.property('RemoteURL', ctx.data.url)
@@ -432,7 +432,7 @@ describe('probes.http', function () {
         ctx.data = { port: server.address().port }
         var mod = helper.run(ctx, 'http/query-filtering')
 
-        helper.httpTest(emitter, mod, [
+        helper.test(emitter, mod, [
           function (msg) {
             check.client.entry(msg)
             var url = ctx.data.url.replace(/\?.*/, '')
@@ -465,7 +465,7 @@ describe('probes.http', function () {
         var url = 'http://localhost:' + port + '/?foo=bar'
         var error = new Error('test')
 
-        helper.httpTest(emitter, function (done) {
+        helper.test(emitter, function (done) {
           var req = http.get(url, function (res) {
             res.on('end', done)
             res.resume()
@@ -509,7 +509,7 @@ describe('probes.http', function () {
         var url = 'http://localhost:' + port + '/?foo=bar'
         var error = new Error('test')
 
-        helper.httpTest(emitter, function (done) {
+        helper.test(emitter, function (done) {
           http.get(url, function (res) {
             res.on('error', done.bind(null, null))
             res.emit('error', error)

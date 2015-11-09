@@ -12,7 +12,7 @@ describe('error', function () {
   }
 
   function handleErrorTest (task, done) {
-    helper.httpTest(emitter, task, [
+    helper.test(emitter, task, [
       function (msg) {
         msg.should.have.property('Layer', 'test')
         msg.should.have.property('Label', 'entry')
@@ -75,7 +75,7 @@ describe('error', function () {
 
   it('should report custom errors', function (done) {
     var error = new Error('test')
-    helper.httpTest(emitter, function (done) {
+    helper.test(emitter, function (done) {
       tv.reportError(error)
       done()
     }, [
@@ -93,7 +93,7 @@ describe('error', function () {
     var error = new Error('test')
     var last
 
-    helper.httpTest(emitter, function (done) {
+    helper.test(emitter, function (done) {
       tv.instrument(testLayer, function (callback) {
         tv.reportError(error)
         callback()
